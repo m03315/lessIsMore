@@ -1,0 +1,53 @@
+<header>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"> {{ .Site.Title }} </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto">
+          {{ range .Site.Menus.main.ByWeight }}
+          {{ if eq "/" .URL }}
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ .URL }}"> <i class="bi bi-house-door"></i> {{ .Name }} </a>
+          </li>
+          {{ end }}
+          {{ if eq "/categories/" .URL }}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ .URL }}"> <i class="bi bi-layers"></i> {{ .Name }} </a>
+          </li>
+          {{ end }}
+          {{ if eq "/archive/" .URL }}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ .URL }}"> <i class="bi bi-archive"></i> {{ .Name }} </a>
+          </li>
+          {{ end }}
+          {{ if eq "/tags/" .URL }}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ .URL }}"> <i class="bi bi-tags"></i> {{ .Name }}</a>
+          </li>
+          {{ end }}
+          {{ if eq "/about/" .URL }}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ .URL }}"><i class="bi bi-rocket-takeoff"></i> {{ .Name }}</a>
+          </li>
+          {{ end }}
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<section id="introduction">
+  {{ if .IsHome }}
+  <h1>{{ .Site.Title }}</h1>
+  {{ else }}
+  <h1>{{ .Title }}</h1>
+  {{ if and .IsPage (eq .Type "posts") }}
+  <h4 id="date"> <i class="bi bi-calendar2-week"></i> <span> {{ .Date.Format "Mon Jan 2, 2006" }} </span></h4>
+  <h5 id="readingTime"> <i class="bi bi-stopwatch"></i> <span> {{ .ReadingTime }} minutes </span> </h5>
+  {{ end }}
+  {{ end }}
+</section>

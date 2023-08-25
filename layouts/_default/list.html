@@ -1,0 +1,62 @@
+{{ define "main" }}
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-10">
+      {{ if eq .Kind "taxonomy" }}
+      {{ if eq .Type "tags" }}
+      <div class="cloud-tags">
+        <ul class="cloud" role="navigation" aria-label="Webdev tag cloud">
+          {{ range .Pages }}
+          {{ $tag := .Title }}
+          {{ $tagCount := 0 }}
+
+          {{ range .Site.RegularPages }}
+          {{ if in .Params.tags $tag }}
+          {{ $tagCount = add $tagCount 1 }}
+          {{ end }}
+          {{ end }}
+          <li><a data-weight="{{ $tagCount }}" href="{{ .RelPermalink }}">{{ $tag }} </a></li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+      {{ if eq .Type "categories" }}
+      <div class="categories">
+        <ul class="list-group">
+          {{ range .Pages }}
+          {{ $category := .Title }}
+          {{ $categoryCount := 0 }}
+          {{ range .Site.RegularPages }}
+          {{ if in .Params.categories $category }}
+          {{ $categoryCount = add $categoryCount 1 }}
+          {{ end }}
+          {{ end }}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span><a href="{{ .RelPermalink }}">
+                {{ $category }} </a> <i class="bi bi-arrow-right-square"></i></span>
+
+            <span class="badge rounded-pill">
+              {{ $categoryCount }}
+            </span>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end}}
+      {{ else if eq .Kind "term" }}
+      <div class="category-tag list-group">
+        {{ range .Pages }}
+        <a href="{{ .RelPermalink }}" class="list-group-item list-group-item-action">
+          <span> <i class="bi bi-journal"></i> {{ .Title }} </span>
+          <span class="archive-item-date"> {{ .Date | time.Format "2006-01-02" }} <i
+              class="bi bi-calendar2-week"></i></span>
+        </a>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+{{ end }}

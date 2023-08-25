@@ -1,0 +1,80 @@
+{{ define "main" }}
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-10 posts" id="post-board">
+      {{ $paginators := .Paginate (where .Site.RegularPages "Type" "posts") 5 }}
+      {{ range ($paginators).Pages }}
+      <article class="post">
+        <header>
+          <div class="title">
+            <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+          </div>
+          <div class="publish-date">
+            <time class="publish-time" datetime="2015-11-01"><i class="bi bi-calendar3"></i> <span>{{ .PublishDate|
+                time.Format ":date_long"}}</span></time>
+          </div>
+        </header>
+        <p><a href="{{ .Permalink }}">{{ .Summary}}</a></p>
+        <footer>
+          {{ with .Params.categories }}
+          <ul class="post-categories">
+            {{ range . }}
+            <li>
+              <span><a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}"><i class="bi bi-layers"></i> {{ . }}</a></span>
+            </li>
+            {{ end }}
+          </ul>
+          {{ end }}
+          {{ with .Params.tags }}
+          <ul class="post-tags  ms-auto">
+            {{ range . }}
+            <li>
+              <span><a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}"><i class="bi bi-tag"></i> {{ . }}</a></span>
+            </li>
+            {{ end }}
+          </ul>
+          {{ end }}
+        </footer>
+      </article>
+      {{ end }}
+    </div>
+    <div class="col"></div>
+  </div>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-10">
+      {{ $paginator := (.Paginator 5) }}
+      {{ if gt $paginator.TotalPages 1 }}
+      <nav aria-label="post-pagination">
+        <ul class="pagination justify-content-center">
+          {{ if $paginator.HasPrev }}
+          <li class="page-item">
+            <a class="page-link" href="{{ $paginator.Prev.URL }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          {{ end }}
+
+          {{ range $paginator.Pagers }}
+          <li class="page-item {{ if eq . $paginator }} active{{ end }}">
+            <a class="page-link" href="{{ .URL }}">{{ .PageNumber }}</a>
+          </li>
+          {{ end }}
+          {{ if $paginator.HasNext }}
+          <li class="page-item">
+            <a class="page-link" href="{{ $paginator.Next.URL }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+      </nav>
+      {{ end }}
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+{{ end }}
