@@ -1,0 +1,54 @@
+{{ define "main" }}
+<div class="container">
+  <div class="row">
+    <div class="col-md-10" id="post-body">
+      <article>
+        <p class="p-3 mb-2 post-last-update"> Last updated: {{ .Lastmod.Format "2006-01-02" }} </p>
+        {{ .Content | safeHTML }}
+        <footer class="post-metas">
+          {{ with .Params.categories }}
+          <ul class="post-categories">
+            {{ range . }}
+            <li>
+              <span><a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}"><i class="bi bi-layers"></i> {{ . }}</a></span>
+            </li>
+            {{ end }}
+          </ul>
+          {{ end }}
+          {{ with .Params.tags }}
+          <ul class="post-tags  ms-auto">
+            {{ range . }}
+            <li>
+              <span><a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}"><i class="bi bi-tag"></i> {{ . }}</a></span>
+            </li>
+            {{ end }}
+          </ul>
+          {{ end }}
+        </footer>
+      </article>
+    </div>
+    <div class="col-md-2" id="post-toc">
+      <aside>
+        <header>
+          <h3>TOC</h2>
+        </header>
+        {{ .TableOfContents }}
+      </aside>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10" id="post-footer">
+      {{ with .PrevInSection }}
+      <button type="button" class="btn previous"><i class="bi bi-arrow-left-circle"></i> <a href="{{ .Permalink }}"> {{
+          .Title }}</a></button>
+      {{ end }}
+      {{ with .NextInSection }}
+      <button type="button" class="btn next"><a href="{{ .Permalink }}"> {{ .Title }}</a> <i
+          class="bi bi-arrow-right-circle"></i></button>
+      {{ end }}
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>
+{{ end }}

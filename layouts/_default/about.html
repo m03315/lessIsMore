@@ -1,0 +1,97 @@
+{{ define "main" }}
+
+<div class="container" id="about-board">
+  <div class="avatar">
+    {{ with .Site.Params.avatar_URL }}
+    <img src="{{ . | relURL }}" class="img-fluid rounded-circle" alt="avatar" />
+    {{ end }}
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-10 m-auto"></div>
+    <div class="global-about">
+      {{ with .Site.Params.peusedo }}
+      <div class="global-about-peusedo">
+        <h2>{{ . }}</h2>
+      </div>
+      {{ end }}
+
+      {{ with .Site.Params.bio }}
+      <div class="global-about-description">
+        <h3>{{ . }}</h3>
+      </div>
+      {{ end }}
+      <div class="global-about-external-links">
+
+        {{ with .Site.Params.social.google }}
+        <a href="{{ . }}"><i class="bi bi-google"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.twitter }}
+        <a href="{{ . }}"><i class="bi bi-twitter"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.wechat }}
+        <a target="_blank" href="{{ . | relURL}}"><i class="bi bi-wechat"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.youtube }}
+        <a href="{{ . }}"><i class="bi bi-youtube"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.github }}
+        <a href="{{ . }}"><i class="bi bi-github"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.discord }}
+        <a href="{{ . }}"><i class="bi bi-discord"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.instagram }}
+        <a href="{{ . }}"><i class="bi bi-instagram"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.linkedin }}
+        <a href="{{ . }}"><i class="bi bi-linkedin"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.medium }}
+        <a href="{{ . }}"><i class="bi bi-medium"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.weibo }}
+        <a href="{{ . }}"><i class="bi bi-sina-weibo"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.tencent }}
+        <a href="{{ . }}"><i class="bi bi-tencent-qq"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.telegram }}
+        <a href="{{ . }}"><i class="bi bi-telegram"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.whatsapp }}
+        <a href="{{ . }}"><i class="bi bi-whatsapp"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.tiktok }}
+        <a href="{{ . }}"><i class="bi bi-tiktok"></i></a>
+        {{ end }}
+
+        {{ with .Site.Params.social.mastodon }}
+        <a href="{{ . }}"><i class="bi bi-mastodon"></i></a>
+        {{ end }}
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-10 m-auto"></div>
+    <article class="about-page-content">
+      {{ .Content }}
+    </article>
+  </div>
+</div>
+</div>
+
+{{ end }}

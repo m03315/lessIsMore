@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-10 posts" id="archive-timeline">
+      {{ $postsPages := where .Site.RegularPages "Type" "in" (slice "posts") }}
+      {{ range ($postsPages.GroupByDate "2006") }}
+      <h2>{{ .Key }} </h2>
+      <ul>
+        {{ range .Pages }}
+        <li>
+          <a href="{{ .RelPermalink }}">
+            <span> <i class="bi bi-journal"></i> {{ .Title }} </span>
+            <span class="archive-item-date"> {{ .Date | time.Format "2006-01-02" }} <i
+                class="bi bi-calendar2-week"></i></span>
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+      {{ end }}
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+{{ end }}
